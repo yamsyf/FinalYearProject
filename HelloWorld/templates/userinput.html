@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<style>
+    body{text-align: center;}
+    #divcss5{margin-top: 100px }
+    #divcss6{margin-left: -40px;} 
+</style>
+<body>
+
+    
+    <form action="/search-post/" method="post">
+        {% csrf_token %}
+        <ul>
+            <li><a href="{% url 'runoob' %}">Home</a></li>
+            </ul>
+        <p>greater than</p>
+        
+        <input type="text" name="q">
+        <p>smaller than</p>
+        <input type="text" name="p">
+        {%if "12C2" in rlt %}
+        <input type="hidden" name="check" value = "12C2">
+        {%endif%}
+        {%if "C2H2__12C2-1H2" in rlt %}
+        <input type="hidden" name="check" value = "C2H2__12C2-1H2">
+        {%endif%}
+        <input type="submit" value="search">
+ 
+    </form>
+    
+    
+</body>
+</html>

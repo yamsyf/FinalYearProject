@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+</head>
+<style>
+    body{text-align: center;}
+    #divcss5{margin-top: 100px }
+    #divcss6{margin-left: -40px;} 
+</style>
+<body>
+    <div id="divcss5">
+        <p>Isotopologue</p>
+        </div>  
+        <!-- <div id="divcss6">
+    <ul>
+        <a href="{% url 'C2H2' %}">C2H2__12C2-1H2</a>
+    </ul>
+    </div> -->
+
+
+    <form action="/post2/" method="post">
+        {% csrf_token %}
+        <!-- {% for blogpost in rlt|slice:":len"  %}
+
+        
+        <label><input type="checkbox" name="check" value = "C2H2">{{blogpost}}</label>
+        
+        {% endfor %} -->
+        {%if "12C2" in rlt %}
+        <label><input type="checkbox" name="check" value = "12C2">12C2</label>
+        {%endif%}
+        {%if "C2H2__12C2-1H2" in rlt %}
+        <label><input type="checkbox" name="check" value = "C2H2__12C2-1H2">C2H2__12C2-1H2</label>
+        {%endif%}
+        
+        <input type="submit" value="search" >
+    
+    
+            </form>
+    
+</body>
+</html>
