@@ -20,11 +20,13 @@ from . import views
 from django.conf.urls import url
 from . import views,search,search2
 from .views import Docs
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib import staticfiles
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
     url('hello/',views.hello),
-    url('runoob/', views.runoob,name='runoob'),
+    url('searchpage/', views.runoob,name='runoob'),
     url(r'^hello/$', views.runoob),
     url(r'^search-form/$', search.search_form),
     url(r'^search/$', search.search),
@@ -37,3 +39,4 @@ urlpatterns = [
     url('post2/',search2.userinput,name='post2')
     
 ]
+urlpatterns += staticfiles_urlpatterns()

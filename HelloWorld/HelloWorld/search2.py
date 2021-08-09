@@ -10,6 +10,7 @@ from .docs import Doc3,Doc4
 from itertools import chain
 from django.db.models import Q
 import operator
+import json
  
 # 接收POST请求数据
 def search_post(request):
@@ -19,6 +20,7 @@ def search_post(request):
     checklist = ["12C2","C2H2__12C2-1H2"]
     molelist = request.POST.getlist("check")
     ctx['molelist'] = request.POST.getlist("check")
+    ctx['filter'] = request.POST.getlist("filter")
     if "12C2" in request.POST.getlist("check"):
         list1.append(51)
     if "C2H2__12C2-1H2" in request.POST.getlist("check"):
@@ -28,19 +30,28 @@ def search_post(request):
         number1 = float(request.POST['p'])
         method = request.POST.get('method',None)
         
-
-        print(type(Doc4.objects))
-        
-        final = Doc4.objects.order_by("v").filter(v__gt = number).filter(v__lt=number1).filter(M__exact=list1[0])
+        print(method)
+        if method=="frequency":
+            number= number/29.9792458
+            number1=number1/29.9792458
+        if method=="wavelength":
+            number = number*10000
+            number1 = number1*10000
+        if "cutting" in request.POST.getlist("filter"):
+            final = Doc4.objects.order_by("v").filter(v__gt = number).filter(v__lt=number1).filter(M__exact=list1[0]).filter(S__gt = 1e-40)
       
         
         #test = test.filter(Q(M__exact=))
-        if len(list1) >1:
-            for i in list1[1:]:
-                final = chain(final,Doc4.objects.filter(v__gt = number).filter(v__lt=number1).filter(M__exact=i).order_by("v"))
-
+            if len(list1) >1:
+                for i in list1[1:]:
+                    final = chain(final,Doc4.objects.filter(v__gt = number).filter(v__lt=number1).filter(S__gt = 1e-40).filter(M__exact=i).order_by("v"))
+        else:
+            final = Doc4.objects.order_by("v").filter(v__gt = number).filter(v__lt=number1).filter(M__exact=list1[0])
+            if len(list1) >1:
+                for i in list1[1:]:
+                    final = chain(final,Doc4.objects.filter(v__gt = number).filter(v__lt=number1).filter(M__exact=i).order_by("v"))
         temp = list(final)
-        print(temp[0].v)
+      
         cmpfun = operator.attrgetter("v")
         temp.sort(key=cmpfun)
         wavelength = []
@@ -96,18 +107,21 @@ def search_post(request):
                 }
             counter =counter+1
             finallist.append(tempdict)
-          #  print(tempdict['S'])
-        ctx['dic'] = finallist
-        ctx['rlt'] = temp
-        ctx['len'] = len(temp)
         
-        ctx['wavelength'] = tempvalue
-        str1 = '{:e}'.format(temp[0].v)
-        print (type(temp[0].S))
+          #  print(tempdict['S'])
+  
+
+        ctx['dic'] = finallist
+        
+        ctx['len'] = len(finallist)
+        
+        
+        
+   
         #print(listtemp)
-        ctx['range'] = range(0,len(temp)-1)
-        print(ctx['range'])
-        ctx['Mole_list'] = []
+      
+
+        
         ctx['Method'] = method
         
 
@@ -149,10 +163,14 @@ def isopo(request):
     ctx['rlt'] = []
     
     if "C2" in request.POST.getlist("check"):
-        ctx['rlt'].append("12C2")
+        ctx['rlt'].append("(12C2)")
     if "C2H2" in request.POST.getlist("check"):
         ctx['rlt'].append("C2H2__12C2-1H2")
-    return render(request,"iso.html",ctx)
+    list1 = ["11","222"]
+    print(ctx['rlt'])
+    return render(request,"iso.html",{
+        'rlt':json.dumps(ctx['rlt'])
+        })
 
 def userinput(request):
     ctx={}
