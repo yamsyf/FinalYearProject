@@ -1,0 +1,750 @@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+
+
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>Searchpage</title>
+
+    <!-- Bootstrap -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+<link rel="stylesheet" href="/static/bootstrap.min.css" />
+<link rel="stylesheet" href="/static/stickup.css" />
+
+
+
+
+
+<style>
+    .bootstrap-table .table thead>tr>th {
+                text-align: center;
+            }
+
+            .table>tbody>tr>td {
+                border: 0px;
+                text-align: center;
+            }
+
+
+    .btn{
+        margin: 20px 120px;
+        width: 120px;        
+    }
+    .content{
+        margin: 10px auto;
+        display: none;
+    }
+    .btn.active{
+        text-decoration:none;
+	background:#2f435e;
+	color:#f2f2f2;
+	
+	
+	font-size:10px;
+	font-family: 微软雅黑,宋体,Arial,Helvetica,Verdana,sans-serif;
+	font-weight:bold;
+	border-radius:3px;
+	
+	-webkit-transition:all linear 0.30s;
+	-moz-transition:all linear 0.30s;
+    }
+    .content.show{
+        display:block;
+        
+    }
+    .btns {
+        text-decoration:none;
+	background:#2f435e;
+	color:#f2f2f2;
+	
+	padding: 10px 30px 10px 30px;
+	font-size:16px;
+	font-family: 微软雅黑,宋体,Arial,Helvetica,Verdana,sans-serif;
+	font-weight:bold;
+	border-radius:3px;
+	
+	-webkit-transition:all linear 0.30s;
+	-moz-transition:all linear 0.30s;
+
+
+
+}
+td{font-weight:400; font-size:13px;}
+th{text-align: center;font-size:13px;}
+        #enterpart{margin:0 auto;width:50%;height:100px;margin-left: auto;} 
+</style>
+<script>
+      function check1() {
+            var v = document.getElementById('test11');
+            var v1 = document.getElementById('test122');
+            if(v.value == '')
+            {
+                //空值校验
+                alert("value cannot be empty");
+                return false;   
+            }
+            if(v1.value ==''){
+                alert("value cannot be empty");//空值校验
+                return false;
+            }
+            
+            return true;
+            
+        }
+ 
+        
+    </script>
+
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+        $(function(){
+         $(":radio").click(function(){
+          if ($(this).val() == "wavenumber"){
+            document.getElementById("text2").innerHTML="(cm"+"-1".sup()+")";
+            document.getElementById("text1").innerHTML="(cm"+"-1".sup()+")";
+          }
+          if ($(this).val() == "wavelength"){
+            document.getElementById("text2").innerHTML="(&mu;m)";
+            
+            document.getElementById("text1").innerHTML="(&mu;m)";
+          }
+          if ($(this).val() == "frequency"){
+            document.getElementById("text2").innerHTML="(GHz)";
+            document.getElementById("text1").innerHTML="(GHz)";
+          }
+         });
+        });
+       </script>
+    <script type="text/javascript">
+        $(function(){
+            $("td").text(function(i,v){
+                
+                if (parseFloat(v).toString() == "NaN"){
+                    return v;
+                }
+                
+                else if(v>0){
+                    
+                    var v1= Number(v).toString().split(".");
+                    
+                    if(Math.round(Number(v)) == Number(v)){
+                        //alert(1)
+                        return Number(v);
+                    }
+                    else{
+                        var value=Math.round(parseFloat(Number(v))*100)/100;
+                        var xsd=value.toString().split(".");
+                        
+                        if(xsd.length>1){
+                            
+                            if(xsd[1].length<6 ){
+                                
+                            return Number(v).toFixed(6);
+                            }
+                            else if(xsd[1].length>=6){
+                                
+                                return Number(v);
+                            }
+                            
+                        }
+                        else {
+                           
+                           var p = Math.floor(Math.log(Number(v))/Math.LN10);
+                            var n = Number(v)* Math.pow(10, -p);
+                            if(p<-4){
+                                return Number(n).toFixed(2) + 'e' + p ;
+                            }
+                            else{
+                                return Number(v).toFixed(6  );
+                                
+                            }
+                            
+                            return Number(v);
+                        }
+                        return Number(v);
+                    }
+        
+                }
+                
+            });
+        });
+        
+    
+            
+        </script>
+    
+</head>
+<body>
+    <div class="navbar navbar-default" role="navigation">
+        　<div class="navbar-header">
+        　    <a href="##" class="navbar-brand">Exomol</a>
+        　</div>
+        <HR style= " FILTER: alpha (opacity = 100, finishopacity =0 , style= 3 )" width ="80%" color =#987 cb 9 SIZE = 3 >
+          <ul class="nav navbar-nav">
+               <li ><a href="##">HomePage</a></li>
+              <li class="active">
+                <a href="##" data-toggle="dropdown" class="dropdown-toggle">Search<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url 'page1' %}">By line</a></li>
+                  <li><a href="##">Option1</a></li>
+                  <li class="disabled"><a href="##">Option2</a></li>
+                </ul>
+             </li>
+             <li><a href="##">Introduction</a></li>
+             <li><a href="##">About us</a></li>
+             <li><a href="##">Contact</a></li>
+          </ul>
+      </div>
+
+
+    <div class="carousel">
+        <!--这里是导航-->
+        <div class="navbar-wrapper" >
+            <div class="container" >
+                <div class="navbarwrapper" >
+                    <div class="navbar navbar-inverse navbar-static-top" style="background: cornflowerblue;">
+                        <div class="container" >
+                            <div class="navbar-collapse collapse" >
+                                <ul class="nav navbar-nav" >
+                                    <li class="menuItem active" >
+                                        <a href="#home" >Search</a>
+                                    </li>
+                                    <li><li class="menuItem">
+                                        <a href="#yw">Function1</a>
+                                    </li>
+                                    <li class="menuItem">
+                                        <a href="#sx">Function2</a>
+                                    </li>
+                                    <li class="menuItem">
+                                        <a href="#wl">Function3</a>
+                                    </li>
+                                    <li class="menuItem">
+                                        <a href="#hx">Function4</a>
+                                    </li>
+                                    <li class="menuItem">
+                                        <a href="#sw">Jump to other pages</a>
+                                    </li>
+                                    
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end导航-->
+        <div id="contents" style="margin-left: 2%;margin-right: 2%;">
+            <div id="home" class="row featurette">
+                 <div class="row">
+                    <HR style= " FILTER: alpha (opacity = 100, finishopacity =0 , style= 3 )" width ="80%" color =#987 cb 9 SIZE = 3 >
+
+                        <form action="/search-post/" method="post" >
+                            {% csrf_token %}
+                    
+                            <div id="enterpart" style="margin-top: 5%; margin-bottom:25%;margin-left: 30%;">
+                                <div >
+                                    <p style="margin-left:31% ;font-size: 20px;">Range of Search</p>
+                            <span style="text-align: center;margin-left: 25%;">Start from =</span>
+                            
+                            <input type="text" style="width: 100px;"id="test11" name="q" onkeyup="if(isNaN(value))execCommand('undo')"  >
+                            <span id="text1">(cm<span style="vertical-align:super;">-1</span>)</span>
+                             <br> 
+                            <span style="margin-left: 25%;">End by  &nbsp&nbsp&nbsp&nbsp&nbsp= </span>
+                                
+                            
+                            <input type="text"  style="width: 100px;" id="test122" name="p" onkeyup="if(isNaN(value))execCommand('undo')" >
+                            <span id="text2">(cm<span style="vertical-align:super;">-1</span>)</span>
+                            
+                                 </div>
+                                 <div style="margin-left: 10%;margin-bottom: 3%;margin-top: 5%;">
+                                    <p style="margin-left:27%;font-size: 20px;"> Unit choice</p>
+                                   
+                                    <input type="radio" name="method" checked="checked" style="margin-bottom: 10px;"value='wavenumber'>Wavenumber(cm<span style="vertical-align:super;">-1</span>)
+                                    <input type="radio" name="method"  value='frequency'>Frequency  (GHz)
+                                <input type="radio" name="method"  value='wavelength'>Wavelength  (&mu;m)
+                               
+                                </div>
+                            {%if "12C2" in molelist %}
+                            <input type="hidden" name="check" value = "12C2">
+                            {%endif%}
+                            {%if "C2H2__12C2-1H2" in molelist %}
+                            <input type="hidden" name="check" value = "C2H2__12C2-1H2">
+                            {%endif%}
+                            {%if "AI1H" in molelist %}
+                            <input type="hidden" name="check" value = "AI1H">
+                            {%endif%}
+                            {%if "14N-1H3" in molelist %}
+                            <input type="hidden" name="check" value = "14N-1H3">
+                            {%endif%}
+                            {%if "1H3-16O" in molelist %}
+                            <input type="hidden" name="check" value = "1H3-16O">
+                            {%endif%}
+                            {%if "1H2-16O" in molelist %}
+                            <input type="hidden" name="check" value = "1H2-16O">
+                            {%endif%}
+                            {%if "12C-16O2" in molelist %}
+                            <input type="hidden" name="check" value = "12C-16O2">
+                            {%endif%}
+                            
+                            <br>
+                            <div style="margin-left:10%;margin-bottom: 5%;">
+                                <p style="margin-left:27%;font-size: 20px;"> Filter Choice</p>
+                                <input type="checkbox" name="filter" value = "cutting" style="margin-left: 15%;">Cutting Intensity
+                                <input type="checkbox" name="filter" value = "1">option1
+                                <input type="checkbox" name="filter" value = "2">option2
+                            </div>
+                            <div style="margin-left:35%;">
+                            <input class="btns" type="submit" style= "margin-left:-2% ;"value="Search" onclick="check1();if (check1()){return true;} else return false;" >
+                            
+                            </div>
+                        </div>
+
+                        </form>
+                    
+                            {%if len < 1000 %}
+                            
+                            <HR style= " FILTER: alpha (opacity = 100, finishopacity =0 , style= 3 );margin-top: 10%;" width ="80%" color =#987 cb 9 SIZE = 3>
+                                <p style="margin-left:47%;font-size: 20px;">Unit switch</p>
+                                <p class="btn1" style="margin-left: -18%;">
+                                    {%if Method == 'wavenumber'%}
+                                    <button class="btn active" style="margin-left:30%">By wavenumber</button>
+                                    
+                                    <button class="btn">By frequency</button>
+                    
+                                    <button class="btn">By wavelength</button>
+                                    {%elif Method == 'frequency'%}
+                                    <button class="btn" style="margin-left:30%">By wavenumber</button>
+                                    
+                                    <button class="btn active">By frequency</button>
+                    
+                                    <button class="btn">By wavelength</button>
+                    
+                                    {%else%}
+                                    <button class="btn" style="margin-left:30%">By wavenumber</button>
+                                    
+                                    <button class="btn">By frequency</button>
+                    
+                                    <button class="btn active">By wavelength</button>
+                                    {%endif%}
+                    
+                                    
+                                </p>
+
+                                
+                        {%for blogpost1 in number %}
+                                {%if blogpost1 == '1'%}
+                                {%if Method == 'wavenumber'%}
+                          
+                                
+                                
+                                <HR style= " FILTER: alpha (opacity = 100, finishopacity =0 , style= 3 )" width ="80%" color =#987 cb 9 SIZE = 3>
+                                <div class="content show">
+                                {%else%}
+                                <div class="content">
+                                {%endif%}
+                                {%endif%}
+                                {%if blogpost1 == '2'%}
+                                {%if Method == 'frequency'%}
+                   
+                                
+                                
+                                <HR style= " FILTER: alpha (opacity = 100, finishopacity =0 , style= 3 )" width ="80%" color =#987 cb 9 SIZE = 3>
+                                <div class="content show">
+                                {%else%}
+                                <div class="content">
+                                {%endif%}
+                                {%endif%}
+                                {%if blogpost1 == '3'%}
+                                {%if Method == 'wavelength'%}
+            
+                                
+                                
+                                <HR style= " FILTER: alpha (opacity = 100, finishopacity =0 , style= 3 )" width ="80%" color =#987 cb 9 SIZE = 3>
+                                <div class="content show">
+                                {%else%}
+                                <div class="content">
+                                {%endif%}
+                                {%endif%}
+                                <div class="table-responsive" style="height: 300px; overflow-y:scroll ; overflow:scroll;">
+                                    <div style="border: 3px  #000000;  margin: 0 auto;">
+                                        <span>
+                                    <table border="1">
+                                        
+                    
+                                    <th colspan="12">
+                                        <table   class="table text-nowrap" border="0" cellspacing="0" >
+                                            <th style="font-weight:400; width: 50px;"> Molecule</th>
+                                            <th style="font-weight:400; width: 50px;">I </th>
+                                            {%if blogpost1 == '1'%}
+                                            <th style="font-weight:400; ">v (cm<span style="vertical-align:super;">-1</span>) </th>
+                                            
+                                            <th style="font-weight:400;  width: 80px;">Ierr (cm<span style="vertical-align:super;">-1</span>)</th>
+                                            <th style="font-weight:400; ">S (cm<sup>-1</sup>)/(molec*cm<sup>-2</sup>) </th>
+                                            <th style="font-weight:400; ">A (s<sup>-1</sup>) </th>
+                                            <th style="font-weight:400;  width: 120px;">E_f (cm<sup>-1</sup>) </th>
+                                            {%elif blogpost1 == '2'%}
+                                            <th style="font-weight:400; ">frequency (GHz) </th>
+                                        
+                                            <th style="font-weight:400;  width: 80px;">Ierr (GHz)</th>
+                                            <th style="font-weight:400; ">S (cm<sup>-1</sup>)/(molec*cm<sup>-2</sup>) </th>
+                                            <th style="font-weight:400; ">A (s<sup>-1</sup>) </th>
+                                            <th style="font-weight:400;  width: 120px;">E_f (GHz) </th>
+                                            {%else%}
+                                            <th style="font-weight:400; width: 100px;">WaveLength (&mu;m) </th>
+                                            
+                                            <th style="font-weight:400;  width: 80px;">Ierr (&mu;m)</th>
+                                            <th style="font-weight:400; ">S (cm<sup>-1</sup>)/(molec*cm<sup>-2</sup>) </th>
+                                            <th style="font-weight:400; ">A (s<sup>-1</sup>) </th>
+                                            <th style="font-weight:400; width: 120px;">E_f (&mu;m) </th>
+                                            {%endif%}
+                                            <td style="width: 140px;">V_i</td>
+                                            <td style="width: 140px;">V_f</td>
+                                            <td style="width: 140px;">Q_i</td>
+                                            <td style="width: 140px;">Q_f</td>
+                                            
+                                            <td>g_i</td>
+                                            <td>g_f</td>
+                            {% for blogpost in dic|slice:":len" %}
+                                        
+                    
+                                      
+                                      <tr>
+                                    <div id="divcss5">
+                                    <td> {{blogpost.Mole}}</td>
+                                    <td style="font-weight:400; font-size:15px;">{{ blogpost.I }} </td>
+                                    {%if blogpost1 == '1'%}
+                                    <td> {{blogpost.v}}</td>
+                                    <td> {{blogpost.Ierr}}</td>
+                                    
+                                   <td> {{blogpost.S}}</td>
+                                   <td> {{blogpost.A}}</td>
+                                   <td> {{blogpost.E_f}}</td>
+                                   {%elif blogpost1 == '2'%}
+                                   <td> {{blogpost.frequency}}</td>
+                                   <td> {{blogpost.Ierr_GHz}}</td>
+                                   
+                                  <td> {{blogpost.S}}</td>
+                                  <td> {{blogpost.A}}</td>
+                                  <td> {{blogpost.E_f_GHz}}</td>
+                                  {%else%}
+                                  <td> {{blogpost.wavelength}}</td>
+                                  <td> {{blogpost.Ierr_mic}}</td>
+                                  
+                                 <td> {{blogpost.S}}</td>
+                                 <td> {{blogpost.A}}</td>
+                                 <td> {{blogpost.E_f_mic}}</td>
+                                 {%endif%}
+                                   <td> {{blogpost.V_i}}</td>
+                                   <td> {{blogpost.V_f}}</td>
+                                   <td> {{blogpost.Q_i}}</td>
+                                   <td> {{blogpost.Q_f}}</td>
+                                   
+                                   <td> {{blogpost.g_i}}</td>
+                                   <td> {{blogpost.g_f}}</td>
+                                   </div>
+                                </tr>
+                            {% endfor %}
+                            </table>
+                            </th>
+                            
+                            </table>
+                            </span>
+                            </div>
+                            </div> 
+                            </div>
+                        {% endfor %}
+                        <a href="{% url 'crm_download' %}">Download CSV file</a>
+                             <script>
+                                var btns = document.getElementsByClassName("btn")
+                    　　　　　//获取内容盒子
+                        var contents = document.getElementsByClassName("content")
+                    
+                    　　　　　//遍历每个按钮为其添加点击事件
+                        for(var i=0;i<btns.length;i++){
+                            btns[i].index = i;
+                            btns[i].onclick = function(){
+                    　　　　　　　　　　//对当前点击的按钮赋予active类名及显示当前按钮对应的内容
+                                for(var j=0;j<btns.length;j++){
+                                    btns[j].className = btns[j].className.replace(' active', '').trim();
+                                    contents[j].className = contents[j].className.replace(' show', '').trim();
+                                }
+                                this.className = this.className + ' active';
+                                contents[this.index].className = contents[this.index].className + ' show';
+                            };
+                    
+                        }
+                            </script>           
+                            {%elif len > 1000 %}   
+                            
+                            <HR style= " FILTER: alpha (opacity = 100, finishopacity =0 , style= 3 );margin-top: 10%;" width ="80%" color =#987 cb 9 SIZE = 3>
+
+                                <p style="margin-left:47%;font-size: 20px;">Unit switch</p>
+                                <p class="btn1" style="margin-left: -18%;">
+                                    {%if Method == 'wavenumber'%}
+                                    <button class="btn active" style="margin-left:30%">By wavenumber</button>
+                                    
+                                    <button class="btn">By frequency</button>
+                    
+                                    <button class="btn">By wavelength</button>
+                                    {%elif Method == 'frequency'%}
+                                    <button class="btn" style="margin-left:30%">By wavenumber</button>
+                                    
+                                    <button class="btn active">By frequency</button>
+                    
+                                    <button class="btn">By wavelength</button>
+                    
+                                    {%else%}
+                                    <button class="btn" style="margin-left:30%">By wavenumber</button>
+                                    
+                                    <button class="btn">By frequency</button>
+                    
+                                    <button class="btn active">By wavelength</button>
+                                    {%endif%}
+                    
+                                    
+                                </p>
+                             
+                                {%for blogpost1 in number %}
+                                {%if blogpost1 == '1'%}
+                                {%if Method == 'wavenumber'%}
+                                
+                                
+                                
+                                <HR style= " FILTER: alpha (opacity = 100, finishopacity =0 , style= 3 )" width ="80%" color =#987 cb 9 SIZE = 3>
+                                <div class="content show">
+                                {%else%}
+                                <div class="content">
+                                {%endif%}
+                                {%endif%}
+                                {%if blogpost1 == '2'%}
+                                {%if Method == 'frequency'%}
+                
+                                
+                                
+                                <HR style= " FILTER: alpha (opacity = 100, finishopacity =0 , style= 3 )" width ="80%" color =#987 cb 9 SIZE = 3>
+                                <div class="content show">
+                                {%else%}
+                                <div class="content">
+                                {%endif%}
+                                {%endif%}
+                                {%if blogpost1 == '3'%}
+                                {%if Method == 'wavelength'%}
+                  
+                                
+                                
+                                <HR style= " FILTER: alpha (opacity = 100, finishopacity =0 , style= 3 )" width ="80%" color =#987 cb 9 SIZE = 3>
+                                <div class="content show">
+                                {%else%}
+                                <div class="content">
+                                {%endif%}
+                                {%endif%}
+                                <div class="table-responsive" style="height: 300px; overflow-y:scroll ; overflow:scroll;">
+                                    <div style="border: 3px  #000000;  margin: 0 auto;">
+                                        <span>
+                                    <table border="1">
+                                        
+                    
+                                    <th colspan="12">
+                                        <table   class="table text-nowrap" border="0" cellspacing="0" >
+                                            <th style="font-weight:400; width: 50px;"> Molecule</th>
+                                            <th style="font-weight:400; width: 50px;">I </th>
+                                            {%if blogpost1 == '1'%}
+                                            <th style="font-weight:400; ">v (cm<span style="vertical-align:super;">-1</span>) </th>
+                                            
+                                            <th style="font-weight:400;  width: 80px;">Ierr (cm<span style="vertical-align:super;">-1</span>)</th>
+                                            <th style="font-weight:400; ">S (cm<sup>-1</sup>)/(molec*cm<sup>-2</sup>) </th>
+                                            <th style="font-weight:400; ">A (s<sup>-1</sup>) </th>
+                                            <th style="font-weight:400;  width: 120px;">E_f (cm<sup>-1</sup>) </th>
+                                            {%elif blogpost1 == '2'%}
+                                            <th style="font-weight:400; ">frequency (GHz) </th>
+                                        
+                                            <th style="font-weight:400;  width: 80px;">Ierr (GHz)</th>
+                                            <th style="font-weight:400; ">S (cm<sup>-1</sup>)/(molec*cm<sup>-2</sup>) </th>
+                                            <th style="font-weight:400; ">A (s<sup>-1</sup>) </th>
+                                            <th style="font-weight:400;  width: 120px;">E_f (GHz) </th>
+                                            {%else%}
+                                            <th style="font-weight:400; width: 100px;">WaveLength (&mu;m) </th>
+                                            
+                                            <th style="font-weight:400;  width: 80px;">Ierr (&mu;m)</th>
+                                            <th style="font-weight:400; ">S (cm<sup>-1</sup>)/(molec*cm<sup>-2</sup>) </th>
+                                            <th style="font-weight:400; ">A (s<sup>-1</sup>) </th>
+                                            <th style="font-weight:400; width: 120px;">E_f (&mu;m) </th>
+                                            {%endif%}
+                                            <td style="width: 140px;">V_i</td>
+                                            <td style="width: 140px;">V_f</td>
+                                            <td style="width: 140px;">Q_i</td>
+                                            <td style="width: 140px;">Q_f</td>
+                                            
+                                            <td>g_i</td>
+                                            <td>g_f</td>
+                            {% for blogpost in dic|slice:":1000" %}
+                                        
+                    
+                                      
+                                      <tr>
+                                    <div id="divcss5">
+                                    <td> {{blogpost.Mole}}</td>
+                                    <td style="font-weight:400; font-size:15px;">{{ blogpost.I }} </td>
+                                    {%if blogpost1 == '1'%}
+                                    <td> {{blogpost.v}}</td>
+                                    <td> {{blogpost.Ierr}}</td>
+                                    
+                                   <td> {{blogpost.S}}</td>
+                                   <td> {{blogpost.A}}</td>
+                                   <td> {{blogpost.E_f}}</td>
+                                   {%elif blogpost1 == '2'%}
+                                   <td> {{blogpost.frequency}}</td>
+                                   <td> {{blogpost.Ierr_GHz}}</td>
+                                   
+                                  <td> {{blogpost.S}}</td>
+                                  <td> {{blogpost.A}}</td>
+                                  <td> {{blogpost.E_f_GHz}}</td>
+                                  {%else%}
+                                  <td> {{blogpost.wavelength}}</td>
+                                  <td> {{blogpost.Ierr_mic}}</td>
+                                  
+                                 <td> {{blogpost.S}}</td>
+                                 <td> {{blogpost.A}}</td>
+                                 <td> {{blogpost.E_f_mic}}</td>
+                                 {%endif%}
+                                   <td> {{blogpost.V_i}}</td>
+                                   <td> {{blogpost.V_f}}</td>
+                                   <td> {{blogpost.Q_i}}</td>
+                                   <td> {{blogpost.Q_f}}</td>
+                                   
+                                   <td> {{blogpost.g_i}}</td>
+                                   <td> {{blogpost.g_f}}</td>
+                                   </div>
+                                </tr>
+                            {% endfor %}
+                            </table>
+                            </th>
+                            
+                            </table>
+                            </span>
+                            </div>
+                            </div> 
+                            </div>
+                        {% endfor %}
+                        <HR style= " FILTER: alpha (opacity = 100, finishopacity =0 , style= 3 )" width ="80%" color =#987 cb 9 SIZE = 3>
+                            <p style="margin-left:47%;font-size: 20px;">File download</p>
+                        <p>Because there are too many search results, only the first 1000 transitions are displayed in the list, If you need to get all the data, download the CSV file</p>
+                        
+                        <a href="{% url 'crm_download' %}">Download CSV file</a><br>
+                        <a href="{% url 'crm_download1000' %}">Download CSV file with first 1000 data</a>
+                        <HR style= " FILTER: alpha (opacity = 100, finishopacity =0 , style= 3 )" width ="80%" color =#987 cb 9 SIZE = 3>
+                             <script>
+                                var btns = document.getElementsByClassName("btn")
+                    　　　　　//获取内容盒子
+                        var contents = document.getElementsByClassName("content")
+                    
+                    　　　　　//遍历每个按钮为其添加点击事件
+                        for(var i=0;i<btns.length;i++){
+                            btns[i].index = i;
+                            btns[i].onclick = function(){
+                    　　　　　　　　　　//对当前点击的按钮赋予active类名及显示当前按钮对应的内容
+                                for(var j=0;j<btns.length;j++){
+                                    btns[j].className = btns[j].className.replace(' active', '').trim();
+                                    contents[j].className = contents[j].className.replace(' show', '').trim();
+                                }
+                                this.className = this.className + ' active';
+                                contents[this.index].className = contents[this.index].className + ' show';
+                            };
+                    
+                        }
+                            </script>  
+                            {%else %}
+                            
+                            {% endif %}
+                    
+                        
+            </div>
+                 </div>
+            <div id="yw" class="row featurette">
+                <h1 style="margin-top: 100px;">I am Funtion1</h1>
+                <p style="margin-bottom: 400px;">
+                    Here can add some content
+                </p>
+
+
+    
+            </div>
+            <div id="sx" class="row featurette"> 
+                <h1 style="margin-top: 100px;">I am Funtion2</h1>
+                <p style="margin-bottom: 400px;">
+                    Here can add some content
+                </p>
+            </div>
+            <div id="wl" class="row featurette">
+                <h1 style="margin-top: 100px;">I am Funtion3</h1>
+                <p style="margin-bottom: 400px;">
+                    Here can add some content
+                </p>
+            </div>
+            <div id="hx" class="row featurette">
+                <h1 style="margin-top: 100px;">I am Funtion4</h1>
+                <p style="margin-bottom: 400px;">
+                    Here can add some content
+                </p>
+            </div>
+            <div id="sw" class="row featurette">
+                <h1 style="margin-top: 100px;">I am Funtion5</h1>
+                <p style="font-size: 30px;">
+                    Link:
+                    <ul style="font-size: 30px;margin-bottom: 400px;"> <a href="{% url 'page1' %}">Home</a></ul>
+                </p>
+            </div>
+          
+           
+          
+        </div>
+        </div>
+        
+
+
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js" ></script>
+        <script type="text/javascript" src="/static/bootstrap.min.js" ></script>
+        <script type="text/javascript" src="/static/stickUp.js" ></script>
+        <script type="text/javascript">
+                 jQuery(function($) {
+            $(document).ready( function() {
+              $('.navbar-wrapper').stickUp({
+                            parts: {
+                              0:'home',
+                              1:'yw',
+                              2: 'sx',
+                              3: 'wl',
+                              4: 'hx',
+                              5: 'sw',
+                              
+                              
+                            },
+                            itemClass: 'menuItem',
+                            itemHover: 'active',
+                            topMargin: 'auto'
+                          });
+            });
+          });
+        </script>
+
+
+
+
+
+      
+<div class="footer" ><p style="margin-left: 80%;">version:0.1 created by Yunfan Sun</p></div>
+     
+
+
+</body>
+
+</html>
