@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
 <title>Searchpage</title>
 
     <!-- Bootstrap -->
@@ -86,12 +86,12 @@ th{text-align: center;font-size:13px;}
             var v1 = document.getElementById('test122');
             if(v.value == '')
             {
-                //空值校验
+              
                 alert("value cannot be empty");
                 return false;   
             }
             if(v1.value ==''){
-                alert("value cannot be empty");//空值校验
+                alert("value cannot be empty");
                 return false;
             }
             
@@ -206,7 +206,7 @@ th{text-align: center;font-size:13px;}
 
 
     <div class="carousel">
-        <!--这里是导航-->
+      
         <div class="navbar-wrapper" >
             <div class="container" >
                 <div class="navbarwrapper" >
@@ -465,14 +465,14 @@ th{text-align: center;font-size:13px;}
                         <a href="{% url 'crm_download' %}">Download CSV file</a>
                              <script>
                                 var btns = document.getElementsByClassName("btn")
-                    　　　　　//获取内容盒子
+                    
                         var contents = document.getElementsByClassName("content")
                     
-                    　　　　　//遍历每个按钮为其添加点击事件
+                    　
                         for(var i=0;i<btns.length;i++){
                             btns[i].index = i;
                             btns[i].onclick = function(){
-                    　　　　　　　　　　//对当前点击的按钮赋予active类名及显示当前按钮对应的内容
+                    　　　　　　　　
                                 for(var j=0;j<btns.length;j++){
                                     btns[j].className = btns[j].className.replace(' active', '').trim();
                                     contents[j].className = contents[j].className.replace(' show', '').trim();
@@ -644,14 +644,14 @@ th{text-align: center;font-size:13px;}
                         <HR style= " FILTER: alpha (opacity = 100, finishopacity =0 , style= 3 )" width ="80%" color =#987 cb 9 SIZE = 3>
                              <script>
                                 var btns = document.getElementsByClassName("btn")
-                    　　　　　//获取内容盒子
+                    
                         var contents = document.getElementsByClassName("content")
                     
-                    　　　　　//遍历每个按钮为其添加点击事件
+                    　　　　
                         for(var i=0;i<btns.length;i++){
                             btns[i].index = i;
                             btns[i].onclick = function(){
-                    　　　　　　　　　　//对当前点击的按钮赋予active类名及显示当前按钮对应的内容
+                    　　　　　　　
                                 for(var j=0;j<btns.length;j++){
                                     btns[j].className = btns[j].className.replace(' active', '').trim();
                                     contents[j].className = contents[j].className.replace(' show', '').trim();

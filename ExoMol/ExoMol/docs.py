@@ -6,6 +6,7 @@ from mongoengine.document import Document
 connect('test')
 
 class Doc4(mongoengine.Document):
+    meta = {'collection':'doc4'}
     M=mongoengine.IntField(default=0)
     I = mongoengine.IntField(default=0)
     v = mongoengine.FloatField(default = 0)
@@ -20,6 +21,7 @@ class Doc4(mongoengine.Document):
     g_i = mongoengine.IntField(default=0)
     g_f = mongoengine.IntField(default=0)
     q = mongoengine.IntField(default=0)
+    
     
     
     

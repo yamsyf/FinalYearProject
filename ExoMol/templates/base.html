@@ -42,30 +42,30 @@ td {
 table{ display: inline-table;}
 </style>
 <script type="text/javascript">
-    //页面加载的时候,所有的复选框都是未选中的状态
+
     function checkOrCancelAll(){
-    //1.获取checkbo的元素对象
+
     var chElt=document.getElementById("chElt");
-    //2.获取选中状态
+
     var checkedElt=chElt.checked;
     console.log(checkedElt)
-    //3.若checked=true,将所有的复选框选中,checked=false,将所有的复选框取消
+    
     var allCheck=document.getElementsByName("check");
-    //4.循环遍历取出每一个复选框中的元素
-    //var mySpan=document.getElementById("mySpan");
+
+
     if(checkedElt){
-    //全选
+
     for(var i=0;i<allCheck.length;i++){
-    //设置复选框的选中状态
+
     allCheck[i].checked=true;
     }
-    //mySpan.innerHTML="取消全选";
+
     }else{
-    //取消全选
+
     for(var i=0;i<allCheck.length;i++){
     allCheck[i].checked=false;
     }
-    //mySpan.innerHTML="全选";
+
     }
     }
     function checkmethod(){ 
@@ -310,13 +310,13 @@ table{ display: inline-table;}
       $('#myTable thead').append(headerHtml)
     }
 
-    // 执行第一次渲染
+
     renderHtml()
 
-    // 展开或者收起按钮点击事件
+
     $('#myTable').on('click', '.extend', function () {
       if ($(this).text() === '-') {
-        // 改变header数据
+
         header = header.map((v, i) => {
           if (v.flage || v.flage === false) {
             v.isShow = false
@@ -328,7 +328,7 @@ table{ display: inline-table;}
             return v
           }
         })
-        // 改变bodys数据
+
         bodys = bodys.map((v, i) => {
           v.datas.map((item, idx) => {
             if(item.flage){
@@ -341,7 +341,7 @@ table{ display: inline-table;}
           return v
         })
       } else {
-        // 改变header数据
+
         header = header.map((v, i) => {
           if (v.flage || v.flage === false) {
             v.isShow = true
@@ -353,7 +353,7 @@ table{ display: inline-table;}
             return v
           }
         })
-        // 改变bodys数据
+
         bodys = bodys.map((v, i) => {
           v.datas.map((item, idx) => {
             if(item.flage){
@@ -366,7 +366,7 @@ table{ display: inline-table;}
           return v
         })
       }
-      // 重新渲染
+
       renderHtml()
     })
   </script>
