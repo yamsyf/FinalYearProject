@@ -31,6 +31,8 @@ urlpatterns = [
     url('post1/',search.isopo,name='post1'),
     url('post2/',search.userinput,name='post2'),
     url(r'^stark/crm/Download/', search.file_down,name='crm_download'),
-    url(r'^stark1/crm/Download/', search.file_down1,name='crm_download1000')
+    url(r'^stark1/crm/Download/', search.file_down1,name='crm_download1000'),
+    url('homepage/',search.homepage,name= 'home')
+    
 ]
 urlpatterns += staticfiles_urlpatterns()

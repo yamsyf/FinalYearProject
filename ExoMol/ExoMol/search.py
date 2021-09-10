@@ -13,7 +13,7 @@ import json
 import codecs
 import csv
  
-# 接收POST请求数据
+
 def search_post(request):
     ctx ={}
     
@@ -240,3 +240,9 @@ def file_down1(request):
     response['Content-Type']='application/octet-stream'  
     response['Content-Disposition']='attachment;filename="data1000.csv"'  
     return response 
+
+def homepage(request):
+    ctx={}
+
+  
+    return render(request,"Homepage.html",ctx)
